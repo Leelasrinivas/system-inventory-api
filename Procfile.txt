@@ -1,1 +1,1 @@
-web: gunicorn system-inventory-api.app:app
+gunicorn app:app
