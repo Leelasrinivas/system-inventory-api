@@ -59,6 +59,20 @@ def get_system_info():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/reports', methods=['GET'])
+def get_all_reports():
+    try:
+        reports = []
+        for filename in os.listdir("reports"):
+            if filename.endswith(".json"):
+                with open(os.path.join("reports", filename), "r") as f:
+                    data = json.load(f)
+                    reports.append(data)
+        return jsonify(reports), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 # ✅ Ensure Gunicorn can find the app object
 # If running via gunicorn, this line is used
 application = app
